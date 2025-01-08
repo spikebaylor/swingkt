@@ -3,20 +3,37 @@ package swingkt.components
 import swingkt.component
 import java.awt.Component
 import java.awt.Container
+import java.awt.event.ItemEvent
 import javax.swing.*
 
 @Suppress("UNCHECKED_CAST")
 class SimpleComboBox<T>(initValues: Collection<T> = emptyList()): JComboBox<T>() {
 
     private val cellRenderer = SimpleListCellRenderer<T>()
+    private val selectedItemListeners = mutableListOf<(T?) -> Unit>()
 
     init {
         setRenderer(cellRenderer)
         getModel().addAll(initValues)
+
+        this.addItemListener { event ->
+            if (event.stateChange == ItemEvent.SELECTED) {
+                selectedItemListeners.forEach { it.invoke(selectedItem) }
+            }
+        }
     }
 
     override fun getSelectedItem(): T? = model.selectedItem as T?
     override fun getModel(): DefaultComboBoxModel<T>  = super.getModel() as DefaultComboBoxModel<T>
+
+    fun onSelectedItemChanged(listener: (selectedItem: T?) -> Unit): (T?) -> Unit {
+        selectedItemListeners.add(listener)
+        return listener
+    }
+
+    fun removeSelectedItemChangedListener(listener: (T?) -> Unit) {
+        selectedItemListeners.remove(listener)
+    }
 
     override fun setModel(aModel: ComboBoxModel<T>?) {
         if (aModel is DefaultComboBoxModel<T>) {

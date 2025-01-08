@@ -7,7 +7,7 @@ import java.awt.Container
 import javax.swing.JPanel
 
 
-class BorderPanel : JPanel(BorderLayout()) {
+open class BorderPanel : JPanel(BorderLayout()) {
 
     private var context = BorderLayout.CENTER
 
