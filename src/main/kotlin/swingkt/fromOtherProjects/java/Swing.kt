@@ -1,24 +1,20 @@
 package swingkt.fromOtherProjects.java
 
-import java.awt.*
+import java.awt.Component
+import java.awt.Point
+import java.awt.Window
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
-import java.util.concurrent.Executors
 import java.util.prefs.Preferences
-import javax.swing.*
+import javax.swing.BorderFactory
+import javax.swing.JComponent
+import javax.swing.JFrame
+import javax.swing.JScrollPane
 import javax.swing.border.Border
 
 
 // JFrames
 fun JFrame.exitOnClose() = setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
-
-// Layouts
-fun Container.vboxLayout() { this.layout = BoxLayout(this, BoxLayout.Y_AXIS) }
-fun Container.hboxLayout() { this.layout = BoxLayout(this, BoxLayout.X_AXIS) }
-fun Container.borderLayout() { this.layout = BorderLayout() }
-fun Container.flowLayoutLeftAligned(hgap: Int = 5, vgap: Int = 5) { this.layout = FlowLayout(FlowLayout.LEFT, hgap, vgap) }
-fun Container.flowLayoutRightAligned(hgap: Int = 5, vgap: Int = 5) { this.layout = FlowLayout(FlowLayout.RIGHT, hgap, vgap) }
-fun Container.flowLayout(hgap: Int = 5, vgap: Int = 5) { flowLayoutLeftAligned(hgap, vgap) }
 
 // Borders
 fun JComponent.titledBorder(title: String) { this.border = BorderFactory.createTitledBorder(title) }
@@ -87,11 +83,3 @@ fun Component.debugSizeChange() = addComponentListener(object : ComponentAdapter
         println(e.component.size)
     }
 })
-
-object IO {
-    private val executor = Executors.newCachedThreadPool()
-
-    fun onIoThread(run: Runnable) {
-        executor.execute(run)
-    }
-}

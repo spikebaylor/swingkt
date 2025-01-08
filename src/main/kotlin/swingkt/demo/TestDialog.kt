@@ -1,8 +1,11 @@
 package swingkt.demo
 
-import swingkt.button
 import swingkt.components.SimpleComboBox
-import swingkt.layouts.*
+import swingkt.components.button
+import swingkt.layouts.BorderPanel
+import swingkt.layouts.FlexJustifyContent
+import swingkt.layouts.GridBag
+import swingkt.layouts.flexrow
 import swingkt.listeners.onAction
 import java.awt.*
 import javax.swing.*

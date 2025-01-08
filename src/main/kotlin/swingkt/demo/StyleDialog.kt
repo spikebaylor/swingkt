@@ -1,9 +1,12 @@
 package swingkt.demo
 
-import swingkt.*
+import swingkt.component
+import swingkt.components.button
+import swingkt.components.label
 import swingkt.layouts.*
 import swingkt.listeners.onAction
 import swingkt.style.*
+import swingkt.textField
 import java.awt.Component
 import java.awt.FlowLayout
 import javax.swing.*

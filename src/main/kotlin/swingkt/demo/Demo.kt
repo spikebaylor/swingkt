@@ -1,6 +1,6 @@
 package swingkt.demo
 
-import swingkt.button
+import swingkt.components.button
 import swingkt.layouts.BorderPanel
 import swingkt.layouts.Flexcol
 import swingkt.style.Style
