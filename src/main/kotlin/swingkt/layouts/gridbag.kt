@@ -81,7 +81,16 @@ class GBC(c: GridBagConstraints = GridBagConstraints()) : GridBagConstraints() {
     fun fillHorizontal() = fill(HORIZONTAL)
     fun fillVertical() = fill(VERTICAL)
 
-    fun margin(top: Int = insets.top, left: Int = insets.left, bottom: Int = insets.bottom, right: Int = insets.right) {
+
+    fun width(gridwidth: Int) { this.gridwidth = gridwidth }
+    fun remainderWidth() = width(REMAINDER)
+    fun relativeWidth() = width(RELATIVE)
+
+    fun height(gridheight: Int) { this.gridheight = gridheight }
+    fun remainderHeight() = height(REMAINDER)
+    fun relativeHeight() = height(RELATIVE)
+
+    fun insets(top: Int = insets.top, left: Int = insets.left, bottom: Int = insets.bottom, right: Int = insets.right) {
         val insets = Insets(top, left, bottom, right)
         this.insets = insets
     }

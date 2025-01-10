@@ -7,7 +7,7 @@ import java.awt.Container
 import javax.swing.JPanel
 
 
-open class BorderPanel : JPanel(BorderLayout()) {
+open class BorderPanel(hgap: Int = 0, vgap: Int = 0) : JPanel(BorderLayout(hgap, vgap)) {
 
     private var context = BorderLayout.CENTER
 
@@ -33,5 +33,5 @@ open class BorderPanel : JPanel(BorderLayout()) {
 
 
 
-fun Container.BorderPanel(block: BorderPanel.() -> Unit) = BorderPanel().apply(block)
-fun Container.borderPanel(block: BorderPanel.() -> Unit = {}) = component(BorderPanel(), block)
+fun Container.BorderPanel(hgap: Int = 0, vgap: Int = 0, block: BorderPanel.() -> Unit) = BorderPanel(hgap, vgap).apply(block)
+fun Container.borderPanel(hgap: Int = 0, vgap: Int = 0, block: BorderPanel.() -> Unit = {}) = component(BorderPanel(hgap, vgap), block)

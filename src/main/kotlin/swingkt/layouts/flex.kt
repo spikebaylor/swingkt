@@ -145,19 +145,19 @@ class FlexBox(
 fun Container.Flexrow(justifyContent: FlexJustifyContent = FlexJustifyContent.START,
                       alignItems: FlexAlignItem = FlexAlignItem.CENTER,
                       gap: Int = 0,
-                      builder: FlexBox.() -> Unit) = FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap).apply { deferLayout { builder() } }
+                      builder: FlexBox.() -> Unit = {}) = FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap).apply { deferLayout { builder() } }
 
 fun Container.Flexcol(justifyContent: FlexJustifyContent = FlexJustifyContent.START,
                       alignItems: FlexAlignItem = FlexAlignItem.CENTER,
                       gap: Int = 0,
-                      builder: FlexBox.() -> Unit) = FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap).apply { deferLayout { builder() } }
+                      builder: FlexBox.() -> Unit = {}) = FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap).apply { deferLayout { builder() } }
 
 fun Container.flexrow(justifyContent: FlexJustifyContent = FlexJustifyContent.START,
                       alignItems: FlexAlignItem = FlexAlignItem.CENTER,
                       gap: Int = 0,
-                      builder: FlexBox.() -> Unit) = component(FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap)) { deferLayout { builder() } }
+                      builder: FlexBox.() -> Unit = {}) = component(FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap)) { deferLayout { builder() } }
 
 fun Container.flexcol(justifyContent: FlexJustifyContent = FlexJustifyContent.START,
                       alignItems: FlexAlignItem = FlexAlignItem.CENTER,
                       gap: Int = 0,
-                      builder: FlexBox.() -> Unit) = component(FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap)) { deferLayout { builder() } }
+                      builder: FlexBox.() -> Unit = {}) = component(FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap)) { deferLayout { builder() } }

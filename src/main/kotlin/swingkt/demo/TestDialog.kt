@@ -32,7 +32,7 @@ class TestDialogKt(owner: Frame? = null) : JDialog(owner, "Test Dialog Kt") {
 
     fun mainPanel() = GridBag {
         modifyDefaultGBC {
-            margin(4, 4, 4 ,0)
+            insets(4, 4, 4 ,0)
         }
 
         data class TestData(val display: String, val tooltip: String)

@@ -1,5 +1,6 @@
 package swingkt.fromOtherProjects.java
 
+import java.awt.Color
 import java.awt.Component
 import java.awt.Point
 import java.awt.Window
@@ -24,6 +25,9 @@ fun JComponent.titledBorder(title: String, internalBorderBuilder: JComponent.() 
 
 fun JComponent.EmptyBorder(top: Int = 0, left: Int = top, bottom: Int = top, right: Int = left): Border = BorderFactory.createEmptyBorder(top, left, bottom, right)
 fun JComponent.emptyBorder(top: Int = 0, left: Int = top, bottom: Int = top, right: Int = left) { this.border = EmptyBorder(top, left, bottom, right) }
+
+fun JComponent.LinedBorder(color: Color = Color.BLACK, thickness: Int = 1, rounded: Boolean = false): Border = BorderFactory.createLineBorder(color, thickness, rounded);
+fun JComponent.linedBorder(color: Color = Color.BLACK, thickness: Int = 1, rounded: Boolean = false) { this.border = LinedBorder(color, thickness, rounded) }
 
 // Alignment
 fun JComponent.leftAligned() { this.alignmentX = Component.LEFT_ALIGNMENT }
