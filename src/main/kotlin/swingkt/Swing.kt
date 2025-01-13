@@ -1,4 +1,4 @@
-package swingkt.fromOtherProjects.java
+package swingkt
 
 import java.awt.Color
 import java.awt.Component
@@ -18,10 +18,11 @@ import javax.swing.border.Border
 fun JFrame.exitOnClose() = setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
 
 // Borders
-fun JComponent.titledBorder(title: String) { this.border = BorderFactory.createTitledBorder(title) }
-fun JComponent.titledBorder(title: String, internalBorderBuilder: JComponent.() -> Border) {
-    this.border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(title), internalBorderBuilder())
-}
+fun JComponent.TitledBorder(title: String) = BorderFactory.createTitledBorder(title)
+fun JComponent.titledBorder(title: String) { this.border = TitledBorder(title) }
+
+fun JComponent.CompoundBorder(outside: Border, inside: Border) = BorderFactory.createCompoundBorder(outside, inside)
+fun JComponent.compoundBorder(outside: Border, inside: Border) { this.border = CompoundBorder(outside, inside) }
 
 fun JComponent.EmptyBorder(top: Int = 0, left: Int = top, bottom: Int = top, right: Int = left): Border = BorderFactory.createEmptyBorder(top, left, bottom, right)
 fun JComponent.emptyBorder(top: Int = 0, left: Int = top, bottom: Int = top, right: Int = left) { this.border = EmptyBorder(top, left, bottom, right) }

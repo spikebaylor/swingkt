@@ -57,4 +57,8 @@ private class ExecutorScheduler(private val executor: Executor) : Scheduler {
 }
 
 
+fun onEDT(runner: Runnable) = Schedulers.runOn(Schedulers.EDT, runner)
+fun onIO(runner: Runnable) = Schedulers.runOn(Schedulers.IO, runner)
+fun onCompute(runner: Runnable) = Schedulers.runOn(Schedulers.Compute, runner)
+
 

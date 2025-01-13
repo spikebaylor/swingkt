@@ -258,7 +258,7 @@ class GBC : GridBagConstraints {
         return this
     }
 
-    fun insets(top: Int, left: Int, bottom: Int, right: Int): GBC {
+    fun insets(top: Int = insets.top, left: Int = insets.left, bottom: Int = insets.bottom, right: Int = insets.right): GBC {
         return this.insets(Insets(top, left, bottom, right))
     }
 
