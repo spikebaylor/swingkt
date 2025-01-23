@@ -6,8 +6,8 @@ import java.awt.Dimension
 import javax.swing.*
 
 fun <T : Component>Container.component(c: T, block: T.() -> Unit = {}): T {
-    c.block()
     add(c)
+    c.block()
     return c
 }
 
