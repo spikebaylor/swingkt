@@ -2,6 +2,7 @@ package swingkt.flex
 
 import swingkt.component
 import swingkt.x
+import java.awt.Color
 import java.awt.Component
 import java.awt.Container
 import java.awt.LayoutManager
@@ -40,6 +41,11 @@ open class FlexBoxPanel(flexLayout: FlexBoxLayout = FlexBoxLayout(
         flexGrow(flexGrow)
     }
 
+    fun opaqueBackground(color: Color) {
+        isOpaque = true
+        background = color
+    }
+
     fun getFlexItemConstraints(comp: Component) = layout.getFlexItemConstraints(comp)
     fun setFlexItemConstraints(comp: Component, constraints: FlexItemConstraints) = layout.setFlexItemConstraints(comp, constraints)
     fun modifyFlexItemConstraints(comp: Component, builder: FlexItemConstraints.() -> FlexItemConstraints) = layout.modifyFlexItemConstraints(comp, builder)
@@ -57,9 +63,20 @@ open class FlexBoxPanel(flexLayout: FlexBoxLayout = FlexBoxLayout(
     }
 
     // Additional methods on Components that are within a FlexBox context
-    fun Component.setConstraints(c: FlexItemConstraints) =this@FlexBoxPanel.setFlexItemConstraints(this, c)
-    fun Component.flexGrow(grow: Int) = this@FlexBoxPanel.modifyFlexItemConstraints(this) { copy(flexGrow = grow) }
-    fun Component.alignSelf(align: FlexAlignItem) = this@FlexBoxPanel.modifyFlexItemConstraints(this) { copy(alignSelf = align) }
+    fun Component.flexGrow(grow: Int) {
+        if (this is FlexBoxPanel && this.parent is FlexBoxPanel) {
+            (this.parent as FlexBoxPanel).modifyFlexItemConstraints(this) { copy(flexGrow = grow) }
+        } else {
+            this@FlexBoxPanel.modifyFlexItemConstraints(this) { copy(flexGrow = grow) }
+        }
+    }
+    fun Component.alignSelf(align: FlexAlignItem) {
+        if (this is FlexBoxPanel && this.parent is FlexBoxPanel) {
+            (this.parent as FlexBoxPanel).modifyFlexItemConstraints(this) { copy(alignSelf = align) }
+        } else {
+            this@FlexBoxPanel.modifyFlexItemConstraints(this) { copy(alignSelf = align) }
+        }
+    }
 
 }
 

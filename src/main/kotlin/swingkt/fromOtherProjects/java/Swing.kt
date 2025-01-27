@@ -1,6 +1,7 @@
 package swingkt.fromOtherProjects.java
 
 import java.awt.Component
+import java.awt.Dimension
 import java.awt.Point
 import java.awt.Window
 import java.awt.event.ComponentAdapter
@@ -32,6 +33,13 @@ fun JComponent.centerAligned() { this.alignmentX = Component.CENTER_ALIGNMENT }
 
 
 fun Component.scrollable() = JScrollPane(this).apply { emptyBorder(); verticalScrollBar.setUnitIncrement(8); }
+
+fun Window.resetMemory() {
+    val sizes: Preferences = Preferences.userRoot().node("SwingWindowSizes")
+    sizes.removeNode()
+    val location: Preferences = Preferences.userRoot().node("SwingWindowLocation")
+    location.removeNode()
+}
 
 fun Window.rememberSize(key: String, defaultWidth: Int, defaultHeight: Int) {
     val keyPref: Preferences = Preferences.userRoot().node("SwingWindowSizes").node(key)
@@ -78,8 +86,17 @@ fun Window.rememberLocation(key: String, x: Int = 0, y: Int = 0) {
 
 
 // Debug
-fun Component.debugSizeChange() = addComponentListener(object : ComponentAdapter() {
+fun Component.debugSizeChange(name: String = "${javaClass.name} :: ${hashCode()}", verbose: Boolean = false) = addComponentListener(object : ComponentAdapter() {
     override fun componentResized(e: ComponentEvent) {
-        println(e.component.size)
+        val c = e.component
+        if (verbose) println()
+        println("[$name] size: ${c.size}")
+        if (verbose) {
+            println("[$name]  min: ${c.minimumSize}")
+            println("[$name] pref: ${c.preferredSize}")
+            println("[$name]  max: ${c.minimumSize}")
+        }
     }
 })
+
+fun Dimension.copy(width: Int = this.width, height: Int = this.height) = Dimension(width, height)

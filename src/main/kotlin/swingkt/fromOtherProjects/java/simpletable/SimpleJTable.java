@@ -27,7 +27,7 @@ public class SimpleJTable<T> extends JTable {
     public SimpleJTable() {
         super();
     }
-    
+
     protected SimpleTableColumn.Builder<T> buildColumn(String name, Function<T, Object> getValue) {
         return new SimpleTableColumn.Builder<>(name, getValue);
     }
@@ -67,7 +67,6 @@ public class SimpleJTable<T> extends JTable {
     }
 
     public static class SimpleJTableContext<T> {
-
 
         public SimpleTableColumn.Builder<T> build(String name, Function<T, Object> getValue) {
             return new SimpleTableColumn.Builder<>(name, getValue);

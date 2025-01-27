@@ -1,6 +1,8 @@
 package swingkt.flex
 
 import java.awt.*
+import java.lang.Exception
+import javax.swing.JLabel
 import javax.swing.SwingUtilities
 import kotlin.math.min
 
@@ -16,9 +18,9 @@ data class RelativeDimension(val mainAxis: Int, val crossAxis: Int)
 private typealias ChangeListener = ()->Unit
 
 class FlexBoxLayout(
-    flexDirection: FlexDirection = FlexDirection.COLUMN,
+    flexDirection: FlexDirection = FlexDirection.ROW,
     justifyContent: FlexJustifyContent = FlexJustifyContent.START,
-    alignItem: FlexAlignItem = FlexAlignItem.START,
+    alignItem: FlexAlignItem = FlexAlignItem.STRETCH,
     gap: Int = 0,
 ) : LayoutManager2 {
 
@@ -165,7 +167,7 @@ class FlexBoxLayout(
         components.forEach { c -> map.computeIfPresent(c) { _, v ->
             val computedAlignItem = getFlexItemConstraints(c).alignSelf ?: alignItem
             val crossPos = when (computedAlignItem) {
-                FlexAlignItem.START, FlexAlignItem.STRETCH -> containerOrigin.crossAxis
+                FlexAlignItem.START, FlexAlignItem.STRETCH, FlexAlignItem.MAX -> containerOrigin.crossAxis
                 FlexAlignItem.END -> containerOrigin.crossAxis + containerSize.crossAxis - v.crossAxisSize
                 FlexAlignItem.CENTER -> containerOrigin.crossAxis + (containerSize.crossAxis / 2) - (v.crossAxisSize / 2)
             }
@@ -176,7 +178,12 @@ class FlexBoxLayout(
     private fun determineCrossSizes(components: List<Component>) {
         components.forEach { c -> map.computeIfPresent(c) { _, v ->
             val computedAlignItem = getFlexItemConstraints(c).alignSelf ?: alignItem
-            val size = if (computedAlignItem == FlexAlignItem.STRETCH) containerSize.crossAxis else c.preferredSize.toRelative().crossAxis
+            val max = components.maxOf { it.preferredSize.toRelative().crossAxis }
+            val size = when(computedAlignItem) {
+                FlexAlignItem.STRETCH -> containerSize.crossAxis
+                FlexAlignItem.MAX -> max
+                else -> c.preferredSize.toRelative().crossAxis
+            }
             v.copy(crossAxisSize = size)
         } }
     }

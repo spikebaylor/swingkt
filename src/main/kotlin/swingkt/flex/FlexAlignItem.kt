@@ -4,5 +4,6 @@ enum class FlexAlignItem {
     START,
     END,
     CENTER,
-    STRETCH
+    STRETCH,
+    MAX
 }
