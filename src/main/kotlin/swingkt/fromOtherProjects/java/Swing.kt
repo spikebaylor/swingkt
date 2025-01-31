@@ -39,6 +39,8 @@ fun Window.resetMemory() {
     sizes.removeNode()
     val location: Preferences = Preferences.userRoot().node("SwingWindowLocation")
     location.removeNode()
+    val keyPref: Preferences = Preferences.userRoot().node("SwingKtMemory")
+    keyPref.removeNode()
 }
 
 fun Window.rememberSize(key: String, defaultWidth: Int, defaultHeight: Int) {

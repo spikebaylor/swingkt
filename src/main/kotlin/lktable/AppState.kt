@@ -48,7 +48,7 @@ class AppState {
     }
 
     fun reinstall(application: Application) {
-        println("application ${application.name}")
+        println("Reinstall ${application.name}")
     }
 
     private val appListeners: MutableList<AppsChangeListener> = mutableListOf()

@@ -128,26 +128,26 @@ class PodTablePanel(state: AppState) : FlexBoxPanel(FlexBoxLayout(flexDirection 
 
     private fun makeFilterTextField(): JTextField {
         filterText = textField(columns = 20) {
-            var clearIcon = LKIcons.CLEAR_LIGHT
+            var clearIcon = LKIcons.CLEAR_FILTER_LIGHT
 
             val clearButton: JButton = JButton(clearIcon).apply {
                 toolTipText = "Clear"
                 onMouseEntered {
-                    icon = LKIcons.CLEAR_RED
+                    icon = LKIcons.CLEAR_FILTER_RED
                 }
                 onMouseExited {
                     icon = clearIcon
                 }
                 onAction {
                     filterText.text = ""
-                    clearIcon = LKIcons.CLEAR_LIGHT
+                    clearIcon = LKIcons.CLEAR_FILTER_LIGHT
                     icon = clearIcon
                     updateFilter()
                 }
             }
 
             onKeyReleased {
-                clearIcon = if (text.isEmpty()) LKIcons.CLEAR_LIGHT else LKIcons.CLEAR_DARK
+                clearIcon = if (text.isEmpty()) LKIcons.CLEAR_FILTER_LIGHT else LKIcons.CLEAR_FILTER_DARK
                 clearButton.icon = clearIcon
                 updateFilter()
             }
