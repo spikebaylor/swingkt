@@ -27,7 +27,19 @@ enum class FlexAlignItem {
     CENTER
 }
 
-class FlexBox(
+open class FlexRow(
+    justifyContent: FlexJustifyContent = FlexJustifyContent.START,
+    alignItems: FlexAlignItem = FlexAlignItem.CENTER,
+    gap: Int = 0
+) : FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap)
+
+open class FlexCol(
+    justifyContent: FlexJustifyContent = FlexJustifyContent.START,
+    alignItems: FlexAlignItem = FlexAlignItem.CENTER,
+    gap: Int = 0
+) : FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap)
+
+open class FlexBox(
     val direction: FlexDirection = FlexDirection.ROW,
     val justifyContent: FlexJustifyContent = FlexJustifyContent.START,
     val alignItems: FlexAlignItem = FlexAlignItem.CENTER,
@@ -99,7 +111,8 @@ class FlexBox(
         when (justifyContent) {
             FlexJustifyContent.CENTER -> super.add(makeGlue())
             FlexJustifyContent.SPACE_EVENLY -> super.add(makeGlue())
-            else -> { /* do nothing */ }
+            else -> { /* do nothing */
+            }
         }
     }
 
@@ -108,7 +121,8 @@ class FlexBox(
             FlexJustifyContent.END -> super.add(makeGlue())
             FlexJustifyContent.CENTER -> super.add(makeGlue())
             FlexJustifyContent.SPACE_EVENLY -> super.add(makeGlue())
-            else -> { /* do nothing */ }
+            else -> { /* do nothing */
+            }
         }
     }
 
@@ -120,7 +134,8 @@ class FlexBox(
             when (justifyContent) {
                 FlexJustifyContent.SPACE_BETWEEN -> super.add(makeGlue())
                 FlexJustifyContent.SPACE_EVENLY -> super.add(makeGlue())
-                else -> { /* do nothing */ }
+                else -> { /* do nothing */
+                }
             }
         }
     }
@@ -142,22 +157,30 @@ class FlexBox(
     }
 }
 
-fun Container.Flexrow(justifyContent: FlexJustifyContent = FlexJustifyContent.START,
-                      alignItems: FlexAlignItem = FlexAlignItem.CENTER,
-                      gap: Int = 0,
-                      builder: FlexBox.() -> Unit = {}) = FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap).apply { deferLayout { builder() } }
+fun Container.Flexrow(
+    justifyContent: FlexJustifyContent = FlexJustifyContent.START,
+    alignItems: FlexAlignItem = FlexAlignItem.CENTER,
+    gap: Int = 0,
+    builder: FlexBox.() -> Unit = {}
+) = FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap).apply { deferLayout { builder() } }
 
-fun Container.Flexcol(justifyContent: FlexJustifyContent = FlexJustifyContent.START,
-                      alignItems: FlexAlignItem = FlexAlignItem.CENTER,
-                      gap: Int = 0,
-                      builder: FlexBox.() -> Unit = {}) = FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap).apply { deferLayout { builder() } }
+fun Container.Flexcol(
+    justifyContent: FlexJustifyContent = FlexJustifyContent.START,
+    alignItems: FlexAlignItem = FlexAlignItem.CENTER,
+    gap: Int = 0,
+    builder: FlexBox.() -> Unit = {}
+) = FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap).apply { deferLayout { builder() } }
 
-fun Container.flexrow(justifyContent: FlexJustifyContent = FlexJustifyContent.START,
-                      alignItems: FlexAlignItem = FlexAlignItem.CENTER,
-                      gap: Int = 0,
-                      builder: FlexBox.() -> Unit = {}) = component(FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap)) { deferLayout { builder() } }
+fun Container.flexrow(
+    justifyContent: FlexJustifyContent = FlexJustifyContent.START,
+    alignItems: FlexAlignItem = FlexAlignItem.CENTER,
+    gap: Int = 0,
+    builder: FlexBox.() -> Unit = {}
+) = component(FlexBox(FlexDirection.ROW, justifyContent, alignItems, gap)) { deferLayout { builder() } }
 
-fun Container.flexcol(justifyContent: FlexJustifyContent = FlexJustifyContent.START,
-                      alignItems: FlexAlignItem = FlexAlignItem.CENTER,
-                      gap: Int = 0,
-                      builder: FlexBox.() -> Unit = {}) = component(FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap)) { deferLayout { builder() } }
+fun Container.flexcol(
+    justifyContent: FlexJustifyContent = FlexJustifyContent.START,
+    alignItems: FlexAlignItem = FlexAlignItem.CENTER,
+    gap: Int = 0,
+    builder: FlexBox.() -> Unit = {}
+) = component(FlexBox(FlexDirection.COLUMN, justifyContent, alignItems, gap)) { deferLayout { builder() } }
