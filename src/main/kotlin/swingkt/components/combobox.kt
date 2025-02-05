@@ -43,6 +43,7 @@ class SimpleComboBox<T>(initValues: Collection<T> = emptyList()): JComboBox<T>()
     }
 
     fun displayText(func: (T) -> String) { cellRenderer.displayTextSupplier = func }
+    fun nullDisplayText(func: () -> String) { cellRenderer.nullDisplayTextSupplier = func }
     fun tooltipText(func: (T) -> String) { cellRenderer.tooltipSupplier = func }
 }
 
