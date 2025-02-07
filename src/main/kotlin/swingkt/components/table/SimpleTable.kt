@@ -92,6 +92,8 @@ class SimpleTable<T>(initData: List<T> = emptyList()) : JTable(SimpleTableModel(
 //    }
 //}
 
+fun <T> Container.SimpleTable(rowValues: List<T> = emptyList(), builder: SimpleTable<T>.() -> Unit) =
+    SimpleTable(rowValues).apply(builder)
 
 fun <T> Container.simpleTable(rowValues: List<T> = emptyList(), builder: SimpleTable<T>.() -> Unit) =
     component(SimpleTable(rowValues), builder)

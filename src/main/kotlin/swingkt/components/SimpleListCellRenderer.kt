@@ -5,6 +5,7 @@ import javax.swing.*
 
 class SimpleListCellRenderer<T>(
     var displayTextSupplier: (T) -> String = { it.toString() },
+    var nullDisplayTextSupplier: () -> String? = { "NULL" },
     var tooltipSupplier: (T) -> String? = { null },
     val delegate: ListCellRenderer<Any> = DefaultListCellRenderer(),
 ) : ListCellRenderer<T> {
@@ -16,7 +17,7 @@ class SimpleListCellRenderer<T>(
         isSelected: Boolean,
         cellHasFocus: Boolean
     ): Component {
-        val display = value?.let { displayTextSupplier(it) } ?: ""
+        val display = value?.let { displayTextSupplier(it) } ?: nullDisplayTextSupplier()
         val tooltip = value?.let { tooltipSupplier(it) }
 
         val comp = delegate.getListCellRendererComponent(list, display, index, isSelected, cellHasFocus)

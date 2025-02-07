@@ -1,6 +1,6 @@
 package swingkt
 
-import java.awt.Color
+import swingkt.components.emptyBorder
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.Point
@@ -8,28 +8,13 @@ import java.awt.Window
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 import java.util.prefs.Preferences
-import javax.swing.BorderFactory
 import javax.swing.JComponent
 import javax.swing.JFrame
 import javax.swing.JScrollPane
-import javax.swing.border.Border
 
 
 // JFrames
 fun JFrame.exitOnClose() = setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
-
-// Borders
-fun JComponent.TitledBorder(title: String) = BorderFactory.createTitledBorder(title)
-fun JComponent.titledBorder(title: String) { this.border = TitledBorder(title) }
-
-fun JComponent.CompoundBorder(outside: Border, inside: Border) = BorderFactory.createCompoundBorder(outside, inside)
-fun JComponent.compoundBorder(outside: Border, inside: Border) { this.border = CompoundBorder(outside, inside) }
-
-fun JComponent.EmptyBorder(top: Int = 0, left: Int = top, bottom: Int = top, right: Int = left): Border = BorderFactory.createEmptyBorder(top, left, bottom, right)
-fun JComponent.emptyBorder(top: Int = 0, left: Int = top, bottom: Int = top, right: Int = left) { this.border = EmptyBorder(top, left, bottom, right) }
-
-fun JComponent.LinedBorder(color: Color = Color.BLACK, thickness: Int = 1, rounded: Boolean = false): Border = BorderFactory.createLineBorder(color, thickness, rounded);
-fun JComponent.linedBorder(color: Color = Color.BLACK, thickness: Int = 1, rounded: Boolean = false) { this.border = LinedBorder(color, thickness, rounded) }
 
 // Alignment
 fun JComponent.leftAligned() { this.alignmentX = Component.LEFT_ALIGNMENT }
@@ -69,11 +54,11 @@ fun Window.rememberSize(key: String, defaultWidth: Int, defaultHeight: Int) {
     })
 }
 
-fun Window.rememberLocation(key: String, x: Int = 0, y: Int = 0) {
+fun Window.rememberLocation(key: String, defaultX: Int = 0, defaultY: Int = 0) {
     val keyPref: Preferences = Preferences.userRoot().node("SwingWindowLocation").node(key)
 
-    val x: String = keyPref["x", x.toString()]
-    val y: String = keyPref["y", y.toString()]
+    val x: String = keyPref["x", defaultX.toString()]
+    val y: String = keyPref["y", defaultY.toString()]
 
     try {
         this.setLocation(x.toInt(), y.toInt())
